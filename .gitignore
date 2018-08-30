@@ -1,0 +1,50 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+*.mk
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+*.cproject
+*.project
+*.xml
+*.prefs
+
+.DS_Store
+Debug/*
+cmake-build-debug/*
+.idea/*
+
+Makefile
+a.out.dSYM/Contents/Info.plist
+libft/Makefile
+main.c
+
+CMakeLists.txt
