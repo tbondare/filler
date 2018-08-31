@@ -1,16 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/31 16:30:33 by tbondare          #+#    #+#             */
+/*   Updated: 2018/08/31 16:54:18 by tbondare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libfiller.h"
 #include <unistd.h>
 #include <fcntl.h>
 
-
-void ft_get_map(t_map *map, char *line, int *fl)
+int ft_get_map(t_map *map, char *line, int *fl)
 {
     int i;
 
     if (*fl == 0)
     {
         map->num_pl = ft_atoi(&line[10]);
-        (*fl)++;
+		return (1);
     }
     else if (*fl == 1)
     {
@@ -19,16 +30,20 @@ void ft_get_map(t_map *map, char *line, int *fl)
         while (line[i] != ' ')
             i++;
         map->w = ft_atoi(&line[++i]);
-        (*fl)++;
+		return (1);
     }
     else if (fl == 2)
     {
         map->map = (char **)malloc(sizeof(char*) * map->h);
         map->y = 0;
-        (*fl)++;
+		return (1);
     }
     if (fl > 2 && fl <= map->h + 2)
-        init_map(&line[4], map);
+	{
+		init_map(&line[4], map);
+		return (1);
+	}
+	return (0);
 }
 
 void ft_get_fgr(t_fgr *fgr, t_map *map, char *line, int fl)
@@ -203,9 +218,13 @@ int main(void)
     fl = 0;
     while ((get_next_line(0, &line)) > 0)
     {
-        if (fl == 0 || fl == 1 || fl == 2)
-            ft_get_map(&map, line, &fl);
-        ft_get_fgr(&fgr, &map, line, fl);
+        if (ft_get_map(&map, line, &fl) == 0)
+			ft_get_fgr(&fgr, &map, line, fl);
+		else
+		{
+			fl++;
+			continue ;
+		}
         printtofile(line, fd);
         fl++;
         print_answer(get_coords(&map, &fgr));
