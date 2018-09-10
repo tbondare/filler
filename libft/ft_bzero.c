@@ -14,7 +14,7 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	void *temp;
+//	void *temp;
 
-	temp = ft_memset(s, '\0', n);
+	ft_memset(s, '\0', n);
 }
